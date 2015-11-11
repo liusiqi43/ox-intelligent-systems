@@ -157,13 +157,11 @@ public class Tour_Demo {
 		// demo_bfts_default();
 	
 		demo_asgs();
-		demo_asts();
-
 		demo_bfgs();
 		demo_dfgs();
-		demo_bfts();
 		demo_idts();
-
+		demo_bfts();
+		demo_asts();
 		demo_dfts();
 	}
 }

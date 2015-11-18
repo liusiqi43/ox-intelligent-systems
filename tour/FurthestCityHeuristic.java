@@ -14,7 +14,7 @@ public class FurthestCityHeuristic implements NodeFunction {
     public int getMaxUnvisitedCityCost(TourState s) {
         int maxCost = 0;
         for (City c : TourState.allCities) {
-            if (!s.visitedCities.contains(c)) {
+            if (c != s.currentCity && !s.visitedCities.contains(c)) {
                 int cost = s.currentCity.getShortestDistanceTo(c) + c.getShortestDistanceTo(TourState.startCity);
                 maxCost = Math.max(maxCost, cost);
             }

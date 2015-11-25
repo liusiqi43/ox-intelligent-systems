@@ -1,18 +1,31 @@
 package mars;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Planet {
+    private static HashMap<Position, int[][]> shortestDistances = new HashMap<>();
     private static final int[][] accessible = new int[][]{
-            {1, 1, 1, 1, 0, 1, 1, 1},
-            {1, 1, 0, 0, 0, 0, 0, 1},
-            {1, 0, 1, 0, 1, 0, 1, 1},
-            {0, 0, 1, 1, 1, 0, 0, 0},
-            {1, 0, 0, 1, 0, 1, 0, 1},
-            {1, 1, 0, 0, 0, 1, 0, 1},
-            {1, 1, 1, 0, 0, 0, 0, 1},
-            {1, 1, 1, 1, 0, 1, 1, 1},
+//            {1, 1, 1, 1, 0, 1, 1, 1},
+//            {1, 1, 0, 0, 0, 0, 0, 1},
+//            {1, 0, 1, 0, 1, 0, 1, 1},
+//            {0, 0, 1, 1, 1, 0, 0, 0},
+//            {1, 0, 0, 1, 0, 1, 0, 1},
+//            {1, 1, 0, 0, 0, 1, 0, 1},
+//            {1, 1, 1, 0, 0, 0, 0, 1},
+//            {1, 1, 1, 1, 0, 1, 1, 1},
+//
+            {1, 1, 1, 1, 0, 1, 1, 1, 0, 0},
+            {1, 1, 0, 0, 0, 0, 0, 1, 1, 0},
+            {1, 0, 1, 0, 1, 0, 1, 1, 0, 0},
+            {0, 0, 1, 1, 1, 0, 0, 0, 1, 0},
+            {1, 0, 0, 1, 0, 1, 0, 0, 0, 0},
+            {1, 0, 0, 0, 0, 1, 0, 1, 0, 1},
+            {1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
+            {1, 0, 1, 1, 0, 1, 1, 1, 0, 1},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            {0, 1, 1, 1, 1, 1, 0, 1, 1, 1},
 
 //        {        0      },
 //        		   |
@@ -81,5 +94,43 @@ public class Planet {
 
     public int width() {
         return accessible[0].length;
+    }
+
+    public static int[][] shortestDistanceForPosition(Position p) {
+        if (shortestDistances.containsKey(p)) {
+            return shortestDistances.get(p);
+        }
+
+        int[][] shortestDistance = new int[accessible.length][accessible[0].length];
+
+        final int MAX_DIST = shortestDistance.length * shortestDistance[0].length;
+        for (int i=0; i<shortestDistance.length; ++i) {
+            for (int j=0; j<shortestDistance[i].length; ++j) {
+                shortestDistance[i][j] = accessible[i][j] == 1 ? Integer.MAX_VALUE : MAX_DIST;
+            }
+        }
+        shortestDistance[p.x][p.y] = 0;
+
+        boolean done = false;
+        while (!done) {
+            done = true;
+            for (int i=0; i<shortestDistance.length; ++i) {
+                for (int j=0; j<shortestDistance[i].length; ++j) {
+                    if (shortestDistance[i][j] == Integer.MAX_VALUE)
+                        continue;
+                    int up = i >= 1 ? shortestDistance[i-1][j] : Integer.MAX_VALUE;
+                    int left = j >= 1 ? shortestDistance[i][j-1] : Integer.MAX_VALUE;
+                    int down = i < shortestDistance.length-1 ? shortestDistance[i+1][j] : Integer.MAX_VALUE;
+                    int right = j < shortestDistance[i].length-1 ? shortestDistance[i][j+1] : Integer.MAX_VALUE;
+                    int update = Math.min(up, Math.min(left, Math.min(down, right))) + 1;
+                    if (update < shortestDistance[i][j]) {
+                        done = false;
+                        shortestDistance[i][j] = update;
+                    }
+                }
+            }
+        }
+        shortestDistances.put(p, shortestDistance);
+        return shortestDistance;
     }
 }

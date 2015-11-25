@@ -7,7 +7,21 @@ import search.*;
  */
 public class MarsDemo {
 
-    public static void demo_asgs() {
+    public static void demo_asgs_closest() {
+        System.out.println();
+        System.out.println("This is a demonstration of A* graph search on Mars with 20 battery life");
+
+        Exploration initialConfiguration = new Exploration(new Position(4, 4), 20);
+
+        search.GoalTest goalTest = new EmptyBatteryGoalTest();
+        Frontier bff = new BestFirstFrontier(new AStarFunction(new ClosestUnvisitedHeuristic()));
+        Search gs = new GraphSearch(bff);
+        Node solution = gs.findSolution(initialConfiguration, goalTest);
+        new ExplorationPrinting().printSolution(solution);
+        System.out.println("Search: " + gs.maxNodeCount() + " bff: " + bff.maxNodeCount());
+    }
+
+    public static void demo_asgs_count() {
         System.out.println();
         System.out.println("This is a demonstration of A* graph search on Mars with 20 battery life");
 
@@ -18,6 +32,7 @@ public class MarsDemo {
         Search gs = new GraphSearch(bff);
         Node solution = gs.findSolution(initialConfiguration, goalTest);
         new ExplorationPrinting().printSolution(solution);
+        System.out.println("Search: " + gs.maxNodeCount() + " bff: " + bff.maxNodeCount());
     }
 
     public static void demo_asgs_cover_map() {
@@ -27,14 +42,15 @@ public class MarsDemo {
         Exploration initialConfiguration = new Exploration(new Position(4, 4), 0);
 
         search.GoalTest goalTest = new MapCoveringGoalTest();
-        Frontier bff = new BestFirstFrontier(new AStarFunction(new UnvisitedPositionHeuristic()));
+        Frontier bff = new BestFirstFrontier(new AStarFunction(new ClosestUnvisitedHeuristic()));
         Search gs = new GraphSearch(bff);
         Node solution = gs.findSolution(initialConfiguration, goalTest);
         new ExplorationPrinting().printSolution(solution);
     }
 
     public static void main(String[] args) {
-        demo_asgs();
+        demo_asgs_closest();
+        demo_asgs_count();
         demo_asgs_cover_map();
     }
 }

@@ -1,5 +1,8 @@
 package search;
 
+import mars.Exploration;
+import mars.ExplorationPrinting;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,7 +38,7 @@ public class GraphSearch implements Search {
                 return n;
 
             for (Action a : n.state.getApplicableActions()) {
-            	State next = n.state.getActionResult(a);
+                State next = n.state.getActionResult(a);
                 if (mVisited.contains(next)) {
                     continue;
                 }

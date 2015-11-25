@@ -14,7 +14,7 @@ public class Node {
 		this.parent = parent;
 		this.action = action;
 		this.state = state;
-		this.depth = -1;
+		this.depth = 0;
         this.cost = parent == null ? 0 : parent.cost + action.cost();
 	}
 	

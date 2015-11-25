@@ -1,8 +1,5 @@
 package search;
 
-import mars.Exploration;
-import mars.ExplorationPrinting;
-
 /**
  * Created by siqi on 10/21/15.
  */
@@ -32,9 +29,8 @@ public class TreeSearch implements Search {
                 return n;
 
 
-
             for (Action a : n.state.getApplicableActions()) {
-                mFrontier.addNode(new Node(n, a, n.state.getActionResult(a), n.depth+1));
+                mFrontier.addNode(new Node(n, a, n.state.getActionResult(a), n.depth + 1));
                 mNodeCount += 1;
             }
         }

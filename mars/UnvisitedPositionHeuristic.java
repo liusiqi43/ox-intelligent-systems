@@ -3,7 +3,6 @@ package mars;
 import search.Node;
 import search.NodeFunction;
 
-import java.util.Collections;
 import java.util.Set;
 
 /**

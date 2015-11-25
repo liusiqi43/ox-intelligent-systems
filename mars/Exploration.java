@@ -57,7 +57,7 @@ public class Exploration implements State {
         Position newPos = new Position(currentPosition.x + m.deltaX, currentPosition.y + m.deltaY);
         Set<Position> visited = new HashSet<>(visitedPositions);
         visited.add(newPos);
-        return new Exploration(newPos, visited, battery-1);
+        return new Exploration(newPos, visited, battery - 1);
     }
 
     @Override

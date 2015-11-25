@@ -11,7 +11,7 @@ public class MarsDemo {
         System.out.println();
         System.out.println("This is a demonstration of A* graph search on Mars with 20 battery life");
 
-        Exploration initialConfiguration = new Exploration(new Position(4,4), 20);
+        Exploration initialConfiguration = new Exploration(new Position(4, 4), 20);
 
         search.GoalTest goalTest = new EmptyBatteryGoalTest();
         Frontier bff = new BestFirstFrontier(new AStarFunction(new UnvisitedPositionHeuristic()));
@@ -24,7 +24,7 @@ public class MarsDemo {
         System.out.println();
         System.out.println("This is a demonstration of A-star graph search on Mars for full coverage");
 
-        Exploration initialConfiguration = new Exploration(new Position(4,4), 0);
+        Exploration initialConfiguration = new Exploration(new Position(4, 4), 0);
 
         search.GoalTest goalTest = new MapCoveringGoalTest();
         Frontier bff = new BestFirstFrontier(new AStarFunction(new UnvisitedPositionHeuristic()));

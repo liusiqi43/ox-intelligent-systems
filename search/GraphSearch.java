@@ -1,8 +1,5 @@
 package search;
 
-import mars.Exploration;
-import mars.ExplorationPrinting;
-
 import java.util.HashSet;
 import java.util.Set;
 

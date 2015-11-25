@@ -42,7 +42,7 @@ public class MarsDemo {
         Exploration initialConfiguration = new Exploration(new Position(4, 4), 0);
 
         search.GoalTest goalTest = new MapCoveringGoalTest();
-        Frontier bff = new BestFirstFrontier(new AStarFunction(new ClosestUnvisitedHeuristic()));
+        Frontier bff = new BestFirstFrontier(new AStarFunction(new UnvisitedPositionHeuristic()));
         Search gs = new GraphSearch(bff);
         Node solution = gs.findSolution(initialConfiguration, goalTest);
         new ExplorationPrinting().printSolution(solution);
